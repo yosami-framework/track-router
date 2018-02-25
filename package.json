@@ -1,0 +1,22 @@
+{
+  "name": "track-router",
+  "version": "0.0.1",
+  "description": "Router for track.",
+  "main": "lib/index.js",
+  "repository": "alfa-jpn/track-router.git",
+  "scripts": {
+    "linter": "eslint ./",
+    "test": "ospec"
+  },
+  "author": "alfa-jpn",
+  "license": "ISC",
+  "dependencies": {
+    "track-config": "0.0.1",
+    "track-dsl": "0.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.17.0",
+    "eslint-config-google": "^0.9.1",
+    "track-spec": "0.0.2"
+  }
+}
