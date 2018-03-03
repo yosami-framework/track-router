@@ -1,24 +1,25 @@
+require('./spec_helper');
 const t           = require('track-spec');
 const TrackRouter = require('../lib/index');
 
 t.describe('TrackRouter', () => {
   t.beforeEach(() => {
     TrackRouter.configure(() => {
-      get('/', {to: 'Index', as: 'root'});
+      get('/', {to: 'root', as: 'root'});
 
       namespace('hoges', () => {
-        get('/', {to: 'HogesIndex', as: 'index'});
-        get('/:id', {to: 'HogesShow', as: 'show'});
+        get('/', {to: 'hoges/index', as: 'index'});
+        get('/:id', {to: 'hoges/show', as: 'show'});
 
         namespace('fugas', () => {
-          get('/', {to: 'HogesFugasIndex', as: 'index'});
+          get('/', {to: 'fugas/index', as: 'index'});
         });
       });
 
       namespace('foos', () => {
         namespace(':id', () => {
-          get('/', {to: 'FooShow', as: 'show'});
-          get('/bar', {to: 'FooBar', as: 'bar'});
+          get('/', {to: 'foos/show', as: 'show'});
+          get('/bar', {to: 'foos/bar', as: 'bar'});
         });
       });
     });
@@ -28,12 +29,12 @@ t.describe('TrackRouter', () => {
     const subject = (() => TrackRouter.routes);
 
     t.it('Return routes', () => {
-      t.expect(subject()['root']).deepEquals({path: '/', to: 'Index'});
-      t.expect(subject()['hoges_index']).deepEquals({path: '/hoges', to: 'HogesIndex'});
-      t.expect(subject()['hoges_show']).deepEquals({path: '/hoges/:id', to: 'HogesShow'});
-      t.expect(subject()['hoges_fugas_index']).deepEquals({path: '/hoges/fugas', to: 'HogesFugasIndex'});
-      t.expect(subject()['foos_show']).deepEquals({path: '/foos/:id', to: 'FooShow'});
-      t.expect(subject()['foos_bar']).deepEquals({path: '/foos/:id/bar', to: 'FooBar'});
+      t.expect(subject()['root']).deepEquals({path: '/', to: 'root'});
+      t.expect(subject()['hoges_index']).deepEquals({path: '/hoges', to: 'hoges/index'});
+      t.expect(subject()['hoges_show']).deepEquals({path: '/hoges/:id', to: 'hoges/show'});
+      t.expect(subject()['hoges_fugas_index']).deepEquals({path: '/hoges/fugas', to: 'fugas/index'});
+      t.expect(subject()['foos_show']).deepEquals({path: '/foos/:id', to: 'foos/show'});
+      t.expect(subject()['foos_bar']).deepEquals({path: '/foos/:id/bar', to: 'foos/bar'});
     });
   });
 
@@ -42,12 +43,12 @@ t.describe('TrackRouter', () => {
 
     t.it('Return routes', () => {
       const routes = subject();
-      t.expect(routes['/']).equals('Index');
-      t.expect(routes['/hoges']).equals('HogesIndex');
-      t.expect(routes['/hoges/:id']).equals('HogesShow');
-      t.expect(routes['/hoges/fugas']).equals('HogesFugasIndex');
-      t.expect(routes['/foos/:id']).equals('FooShow');
-      t.expect(routes['/foos/:id/bar']).equals('FooBar');
+      t.expect(routes['/'].name).equals('root');
+      t.expect(routes['/hoges'].name).equals('hoges/index');
+      t.expect(routes['/hoges/:id'].name).equals('hoges/show');
+      t.expect(routes['/hoges/fugas'].name).equals('fugas/index');
+      t.expect(routes['/foos/:id'].name).equals('foos/show');
+      t.expect(routes['/foos/:id/bar'].name).equals('foos/bar');
     });
   });
 

@@ -15,20 +15,20 @@ npm install track-router
 const TrackRouter = require('track-router');
 
 TrackRouter.configure(() => {
-  get('/', {to: require('homes/index_controller'), as: 'root'}); // `/`
+  get('/', {to: require('homes/index'), as: 'root'}); // `/`
 
   namespace('hoges', () => {
-    get('/',   {to: require('hoges/index_controller'), as: 'index'}); // `/hoges`
-    get(':id', {to: require('hoges/show_controller'),  as: 'show'});  // `/hoges/:id`
+    get('/',   {to: 'hoges/index', as: 'index'}); // `/hoges`
+    get(':id', {to: 'hoges/show',  as: 'show'});  // `/hoges/:id`
 
     namespace('fugas', () => {
-      get(':id', {to: require('hoges/fugas/show_controller'),  as: 'show'}); // `/hoges/fugas/:id`
+      get(':id', {to: 'hoges/fugas/show',  as: 'show'}); // `/hoges/fugas/:id`
     });
   });
 
   namespace('foo', () => {
     namespace(':id', () => {
-      get('/bar', {to: require('foo/bar/index_controller'), as: 'bar'}); // `/foo/:id/bar`
+      get('/bar', {to: 'foo/bar/index', as: 'bar'}); // `/foo/:id/bar`
     });
   });
 });
