@@ -1,6 +1,6 @@
 {
   "name": "track-router",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Router for track.",
   "main": "lib/index.js",
   "repository": "alfa-jpn/track-router.git",
@@ -10,13 +10,17 @@
   },
   "author": "alfa-jpn",
   "license": "ISC",
-  "dependencies": {
-    "track-config": "0.0.2",
-    "track-dsl": "0.0.3"
-  },
   "devDependencies": {
     "eslint": "^4.17.0",
     "eslint-config-google": "^0.9.1",
-    "track-spec": "0.0.2"
+    "mithril": "^1.1.6",
+    "track-config": "0.0.3",
+    "track-dsl": "0.0.3",
+    "track-spec": "0.0.3"
+  },
+  "peerDependencies": {
+    "mithril": "1.x",
+    "track-config": "0.0.x",
+    "track-dsl": "0.0.x"
   }
 }
