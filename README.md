@@ -1,6 +1,8 @@
 # TrackRouter
 Router for track.
 
+[![Build Status](https://travis-ci.org/yosami-framework/track-router.svg?branch=master)](https://travis-ci.org/yosami-framework/track-router)
+
 ## Installation
 
 ### npm
