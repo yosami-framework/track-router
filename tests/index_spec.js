@@ -1,5 +1,6 @@
 require('./spec_helper');
 const t           = require('track-spec');
+const TrackConfig = require('track-config');
 const TrackRouter = require('../lib/index');
 
 t.describe('TrackRouter', () => {
@@ -59,6 +60,20 @@ t.describe('TrackRouter', () => {
 
     t.it('Return routes', () => {
       t.expect(subject()).equals('/foos/888/bar');
+    });
+
+    t.context('When set TrackConfig.relativeUrlRoot', () => {
+      t.beforeEach(() => {
+        TrackConfig.relativeUrlRoot = '/my-app';
+      });
+
+      t.afterEach(() => {
+        TrackConfig.relativeUrlRoot = undefined;
+      });
+
+      t.it('Return routes', () => {
+        t.expect(subject()).equals('/my-app/foos/888/bar');
+      });
     });
   });
 
