@@ -1,6 +1,6 @@
 {
   "name": "track-router",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Router for track.",
   "main": "lib/index.js",
   "repository": "yosami-framework/track-router.git",
@@ -14,7 +14,7 @@
     "eslint": "^4.17.0",
     "eslint-config-google": "^0.9.1",
     "mithril": "^1.1.6",
-    "track-config": "0.0.4",
+    "track-config": "0.0.5",
     "track-dsl": "0.0.5",
     "track-spec": "0.0.4"
   },
