@@ -16,7 +16,7 @@ t.describe('Resolver', () => {
     });
   });
 
-  t.describe('.onmatch', () => {
+  t.describe('#onmatch', () => {
     const subject = (() => resolver.onmatch(params));
     let params = null;
 
@@ -40,6 +40,19 @@ t.describe('Resolver', () => {
       t.it('Return UnmatchedController', () => {
         t.expect(subject()).equals(UnmatchedController);
       });
+    });
+  });
+
+  t.describe('#render', () => {
+    const subject = (() => resolver.render(vnode));
+    let vnode = null;
+
+    t.beforeEach(() => {
+      vnode = {};
+    });
+
+    t.it('Return vnode', () => {
+      t.expect(subject()).equals(vnode);
     });
   });
 });
