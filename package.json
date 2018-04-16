@@ -1,6 +1,6 @@
 {
   "name": "track-router",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Router for track.",
   "main": "lib/index.js",
   "repository": "yosami-framework/track-router.git",

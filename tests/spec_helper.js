@@ -5,4 +5,6 @@ global.document = window.document;
 
 TrackConfig.configure((c) => {
   c.loader = ((module) => require(`./fixtures/${module}`));
+  c.localeLoader = ((module) => {});
+  c.localeSelector = ((module) => 'en');
 });
