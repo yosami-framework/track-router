@@ -3,8 +3,13 @@ const t                   = require('track-spec');
 const UnmatchedController = require('../../lib/resolvers/unmatched_controller');
 
 t.describe('UnmatchedController', () => {
-  t.describe('.constructor', () => {
-    const subject = (() => new UnmatchedController({}));
+  let controller = null;
+  t.beforeEach(() => {
+    controller = new UnmatchedController({attrs: {}, state: {}});
+  });
+
+  t.describe('#oninit', () => {
+    const subject = (() => controller.oninit());
 
     t.it('Raise error', () => {
       let error = null;
