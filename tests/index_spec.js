@@ -18,8 +18,9 @@ t.describe('TrackRouter', () => {
       });
 
       namespace('foos', () => {
-        namespace(':id', () => {
-          get('/', {to: 'foos/show', as: 'show'});
+        namespace(':foo_id', {constraints: {foo_id: '/^\\d+$/'}}, () => {
+          get('/', {to: 'foos/index', as: 'index'});
+          get('/:id', {to: 'foos/show', as: 'show', constraints: {id: '/^\\d$/'}});
           get('/bar', {to: 'foos/bar', as: 'bar'});
         });
       });
@@ -30,12 +31,13 @@ t.describe('TrackRouter', () => {
     const subject = (() => TrackRouter.routes);
 
     t.it('Return routes', () => {
-      t.expect(subject()['root']).deepEquals({path: '/', to: 'root'});
-      t.expect(subject()['hoges_index']).deepEquals({path: '/hoges', to: 'hoges/index'});
-      t.expect(subject()['hoges_show']).deepEquals({path: '/hoges/:id', to: 'hoges/show'});
-      t.expect(subject()['hoges_fugas_index']).deepEquals({path: '/hoges/fugas', to: 'fugas/index'});
-      t.expect(subject()['foos_show']).deepEquals({path: '/foos/:id', to: 'foos/show'});
-      t.expect(subject()['foos_bar']).deepEquals({path: '/foos/:id/bar', to: 'foos/bar'});
+      t.expect(subject()['root']).deepEquals({path: '/', to: 'root', constraints: {}});
+      t.expect(subject()['hoges_index']).deepEquals({path: '/hoges', to: 'hoges/index', constraints: {}});
+      t.expect(subject()['hoges_show']).deepEquals({path: '/hoges/:id', to: 'hoges/show', constraints: {}});
+      t.expect(subject()['hoges_fugas_index']).deepEquals({path: '/hoges/fugas', to: 'fugas/index', constraints: {}});
+      t.expect(subject()['foos_index']).deepEquals({path: '/foos/:foo_id', to: 'foos/index', constraints: {foo_id: '/^\\d+$/'}});
+      t.expect(subject()['foos_show']).deepEquals({path: '/foos/:foo_id/:id', to: 'foos/show', constraints: {foo_id: '/^\\d+$/', id: '/^\\d$/'}});
+      t.expect(subject()['foos_bar']).deepEquals({path: '/foos/:foo_id/bar', to: 'foos/bar', constraints: {foo_id: '/^\\d+$/'}});
     });
   });
 
@@ -44,18 +46,19 @@ t.describe('TrackRouter', () => {
 
     t.it('Return routes', () => {
       const routes = subject();
-      t.expect(routes['/'].name).equals('root');
-      t.expect(routes['/hoges'].name).equals('hoges/index');
-      t.expect(routes['/hoges/:id'].name).equals('hoges/show');
-      t.expect(routes['/hoges/fugas'].name).equals('fugas/index');
-      t.expect(routes['/foos/:id'].name).equals('foos/show');
-      t.expect(routes['/foos/:id/bar'].name).equals('foos/bar');
+      t.expect(routes['/'].onmatch({}, '/').name).equals('root');
+      t.expect(routes['/hoges'].onmatch({}, '/').name).equals('hoges/index');
+      t.expect(routes['/hoges/:id'].onmatch({}, '/').name).equals('hoges/show');
+      t.expect(routes['/hoges/fugas'].onmatch({}, '/').name).equals('fugas/index');
+      t.expect(routes['/foos/:foo_id'].onmatch({}, '/').name).equals('foos/index');
+      t.expect(routes['/foos/:foo_id/:id'].onmatch({}, '/').name).equals('foos/show');
+      t.expect(routes['/foos/:foo_id/bar'].onmatch({}, '/').name).equals('foos/bar');
     });
   });
 
   t.describe('.getPath', () => {
     const subject = (() => {
-      return TrackRouter.getPath('foos_bar', {id: 888});
+      return TrackRouter.getPath('foos_bar', {foo_id: 888});
     });
 
     t.it('Return routes', () => {

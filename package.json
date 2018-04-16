@@ -1,6 +1,6 @@
 {
   "name": "track-router",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Router for track.",
   "main": "lib/index.js",
   "repository": "yosami-framework/track-router.git",
@@ -14,13 +14,21 @@
     "eslint": "^4.17.0",
     "eslint-config-google": "^0.9.1",
     "mithril": "^1.1.6",
-    "track-config": "0.0.5",
-    "track-dsl": "0.0.5",
+    "track-component": "0.0.18",
+    "track-config": "0.0.6",
+    "track-controller": "0.0.21",
+    "track-dsl": "0.0.8",
+    "track-eventor": "0.0.6",
+    "track-helpers": "0.0.5",
+    "track-i18n": "0.0.4",
+    "track-model": "0.0.8",
     "track-spec": "0.0.4"
   },
   "peerDependencies": {
     "mithril": "1.x",
     "track-config": "0.0.x",
-    "track-dsl": "0.0.x"
+    "track-controller": "0.0.x",
+    "track-dsl": "0.0.x",
+    "track-helpers": "0.0.x"
   }
 }
