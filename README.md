@@ -33,6 +33,8 @@ TrackRouter.configure(() => {
       get('/bar', {to: 'foo/bar/index', as: 'bar'}); // `/foo/:id/bar`
     });
   });
+
+  get('/numbers/:num', {to: 'numbers/show', as: 'numbers', constraints: {num: /^\d+$/}})
 });
 
 TrackRouter.getPath('root');                 // `/`
